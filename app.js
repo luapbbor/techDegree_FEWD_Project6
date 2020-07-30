@@ -83,8 +83,12 @@ qwerty.addEventListener('click', (event) => {
     event.target.disabled = true; 
    
     }
+// if the letter pressed on the screen is not found, remove a score and add 1 to the wrongGuess counter   
 console.log(letterFound); 
+let scoreboard = document.querySelector('#scoreboard ol');
+const hearts = document.querySelectorAll('.tries');
     if (letterFound == null) {
+        scoreboard.removeChild(hearts[0]);
         wrongGuess += 1;
     }
 console.log(wrongGuess); 
