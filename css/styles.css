@@ -94,6 +94,8 @@ button {
 
 .show {
   color: #000;
+  transition: background-color 2s;
+  transition: color: 3s;
   background-color: #76CE82;
 }
 
@@ -102,6 +104,7 @@ button {
 .keyrow {
   display: flex;
   justify-content: center;
+  
 }
 
 .chosen {

@@ -71,19 +71,21 @@ return letterMatch;
 
 // This event listener compares the button clicked on the on-screen keyboard and the phrase that has been generated
 // as a list item.
+
 qwerty.addEventListener('click', (event) => {
-    
- console.log("I pressed outside a button")
- const button = document.querySelector('.keyrow button');
+ 
+ const button = document.querySelector('.keyrow button').target;
  const buttons = document.querySelectorAll('.keyrow button');
  const buttonContent = event.target.textContent;
- console.log(buttonContent);
+ const keyRows = document.querySelector('.keyrow');
+if (event.target.tagName == 'BUTTON'){
  let letterFound = checkLetter(buttonContent); 
      for (let i = 0; i < buttons.length; i++) {
     event.target.className = "chosen";
     event.target.disabled = true; 
    
     }
+
 // if the letter pressed on the screen is not found, remove a score and add 1 to the wrongGuess counter   
 console.log(letterFound); 
 let scoreboard = document.querySelector('#scoreboard ol');
@@ -98,6 +100,7 @@ const show = document.querySelectorAll(".show");
 console.log(letters.length);
 console.log(show.length);
 
+// This function checks if you have won the game or not and displays the appropriate overlay
 function checkWin () {
 let overlay = document.querySelector("#overlay");
 let overlayLinks = document.querySelector("#overlay a");
@@ -111,12 +114,12 @@ let overlayTitle = document.querySelector(".title");
     overlay.className = "lose";
     overlay.style.display = "flex";
     overlayLinks.className = "lose a";
-    overlayTitle.textContent = "Would you like to try again ?"
+    overlayTitle.textContent = "Game Over "
     }
 }
 
 checkWin();
-
+}
 });
 
 
