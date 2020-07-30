@@ -3,7 +3,7 @@
 const phrase = document.querySelector("#phrase");
 const qwerty = document.querySelector("#qwerty");
 const button_reset = document.querySelector(".btn__reset");
-const missedGuesses = 0;
+let wrongGuess = 0;
 // phrase array
 const phrases = [
     "the pink panther",
@@ -41,7 +41,9 @@ const ul = document.querySelector('#phrase ul');
         li.textContent = arr[i];
         if (arr[i] != " ") {
         li.className = "letter";
-    }
+        } else {
+        li.className = "space";
+        }
     }
 }
 
@@ -54,33 +56,39 @@ let letterMatch = null;
     for (let i = 0; i < letters.length; i++) {
         // console.log(letters[i]);
         // console.log(buttonSelected);
-        if (buttonSelected === letters[i].textContent) {
+        console.log(letters[i].textContent);
+        if (buttonSelected == letters[i].textContent) {
+           console.log("letter Match");
            letters[i].className = "letter show";
-           letterMatch = buttonSelected.textContent;
-           
-        } 
-         
+           letterMatch = letters[i].textContent;
+           console.log(letterMatch);
+        //    return letterMatch;
+       }  
     }
-  return letterMatch
+return letterMatch;
 }
 
 
-
+// This event listener compares the button clicked on the on-screen keyboard and the phrase that has been generated
+// as a list item.
 qwerty.addEventListener('click', (event) => {
  console.log("I pressed outside a button")
  const button = document.querySelector('.keyrow button');
  const buttons = document.querySelectorAll('.keyrow button');
  const buttonContent = event.target.textContent;
  console.log(buttonContent);
-    
-          for (let i = 0; i < buttons.length; i++) {
-            let letterFound = [checkLetter(buttonContent)];
-            
-            event.target.className = "chosen";
-            event.target.disabled = true;
-         
-        }
+ let letterFound = checkLetter(buttonContent); 
+     for (let i = 0; i < buttons.length; i++) {
+    event.target.className = "chosen";
+    event.target.disabled = true; 
    
+    }
+console.log(letterFound); 
+    if (letterFound == null) {
+        wrongGuess += 1;
+    }
+console.log(wrongGuess); 
+    
 
 });
 
