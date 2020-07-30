@@ -72,6 +72,7 @@ return letterMatch;
 // This event listener compares the button clicked on the on-screen keyboard and the phrase that has been generated
 // as a list item.
 qwerty.addEventListener('click', (event) => {
+    
  console.log("I pressed outside a button")
  const button = document.querySelector('.keyrow button');
  const buttons = document.querySelectorAll('.keyrow button');
@@ -92,7 +93,30 @@ const hearts = document.querySelectorAll('.tries');
         wrongGuess += 1;
     }
 console.log(wrongGuess); 
-    
+const letters = document.querySelectorAll(".letter");
+const show = document.querySelectorAll(".show");
+console.log(letters.length);
+console.log(show.length);
+
+function checkWin () {
+let overlay = document.querySelector("#overlay");
+let overlayLinks = document.querySelector("#overlay a");
+let overlayTitle = document.querySelector(".title");
+    if (show.length == letters.length) {
+       overlay.className = "win";
+       overlay.style.display = 'flex';
+       overlayLinks.className = "win a";
+       overlayTitle.textContent = "You Win !"
+    } else if (wrongGuess >= 5) {
+    overlay.className = "lose";
+    overlay.style.display = "flex";
+    overlayLinks.className = "lose a";
+    overlayTitle.textContent = "Would you like to try again ?"
+    }
+}
+
+checkWin();
 
 });
+
 
