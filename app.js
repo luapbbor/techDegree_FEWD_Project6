@@ -13,11 +13,6 @@ const phrases = [
     "the mouse in the house"
 ];
 
-// when the start game button is clicked, hides the overlay
-button_reset.addEventListener('click', () => {
-const overlay = document.querySelector("#overlay");
-overlay.style.display = "none";
-});
 
 // This function randomly gets a phrase from the phrases array
 function getRandomPhraseAsArray(arr) {
@@ -30,7 +25,6 @@ console.log(phraseCharacters);
 return phraseCharacters;
 };
 
-const phraseArray = getRandomPhraseAsArray(phrases);
 
 // This function adds the random phrase to a list item and appends the list item to the ul
 function addPhraseToDisplay (arr) {
@@ -47,7 +41,33 @@ const ul = document.querySelector('#phrase ul');
     }
 }
 
-addPhraseToDisplay(phraseArray);
+button_reset.addEventListener('click', () => {
+    const overlay = document.querySelector("#overlay");
+    overlay.style.display = "none";
+    wrongGuess = 0;
+    console.log(wrongGuess);
+    const buttons = document.querySelectorAll('.keyrow button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("chosen");
+        buttons[i].disabled = false;
+    }
+
+    const hearts = document.querySelectorAll('.tries img');
+    for (let j = 0; j < hearts.length; j++) {
+        hearts[j].src = "images/liveHeart.png";
+    }
+
+    const listItems = document.querySelectorAll('ul li');
+    for (let j = 0; j < listItems.length; j++) {
+        console.log(listItems[j])
+        if (listItems[j] != 0) {
+        listItems[j].remove();
+        }
+    }
+    const phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
+});
+
 
 // This function compares the button selected to the list items with a class ".letter"
 function checkLetter(buttonSelected) {
@@ -89,11 +109,16 @@ if (event.target.tagName == 'BUTTON'){
 // if the letter pressed on the screen is not found, remove a score and add 1 to the wrongGuess counter   
 console.log(letterFound); 
 let scoreboard = document.querySelector('#scoreboard ol');
-const hearts = document.querySelectorAll('.tries');
+const hearts = document.querySelectorAll('.tries img');
+
     if (letterFound == null) {
-        scoreboard.removeChild(hearts[0]);
+        
+            hearts[wrongGuess].src = "images/lostHeart.png";
+            hearts.length --;
+        
         wrongGuess += 1;
     }
+
 console.log(wrongGuess); 
 const letters = document.querySelectorAll(".letter");
 const show = document.querySelectorAll(".show");
@@ -108,18 +133,20 @@ let overlayTitle = document.querySelector(".title");
     if (show.length == letters.length) {
        overlay.className = "win";
        overlay.style.display = 'flex';
-       overlayLinks.className = "win a";
        overlayTitle.textContent = "You Win !"
+       button_reset.textContent = "New Game";
     } else if (wrongGuess >= 5) {
     overlay.className = "lose";
     overlay.style.display = "flex";
-    overlayLinks.className = "lose a";
     overlayTitle.textContent = "Game Over "
+    button_reset.textContent = "Try Again";
     }
 }
-
 checkWin();
 }
 });
+
+
+
 
 
