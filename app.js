@@ -6,10 +6,7 @@ const button_reset = document.querySelector(".btn__reset");
 const keyboardButton = document.querySelectorAll('.keyrow button');
 let wrongGuess = 0;
 
-// Adds the pointer cursor to all keyboard buttons
-for (let i = 0; i < keyboardButton.length; i++) {
-keyboardButton[i].style.cursor = "pointer";
-}
+
 
 
 // phrase array
@@ -51,21 +48,27 @@ const ul = document.querySelector('#phrase ul');
 // This event hides the overlay, and resets the counters, list items, buttons, hearts back to their 
 // original state.
 button_reset.addEventListener('click', () => {
+    // Adds the pointer cursor to all keyboard buttons
+for (let i = 0; i < keyboardButton.length; i++) {
+    keyboardButton[i].style.cursor = "pointer";
+    }
+    // Hides the overlay
     const overlay = document.querySelector("#overlay");
     overlay.style.display = "none";
+    // reset the wrongGuess counter
     wrongGuess = 0;
+    //removes the class from the buttons and enables the buttons
     const buttons = document.querySelectorAll('.keyrow button');
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("chosen");
         buttons[i].disabled = false;
-      
     }
-
+    // resets the src for all hearts images to be "liveHeart.png"
     const hearts = document.querySelectorAll('.tries img');
     for (let j = 0; j < hearts.length; j++) {
         hearts[j].src = "images/liveHeart.png";
     }
-
+    // removes all the list items;
     const listItems = document.querySelectorAll('ul li');
     for (let j = 0; j < listItems.length; j++) {
         if (listItems[j] != 0) {
@@ -103,13 +106,14 @@ qwerty.addEventListener('click', (event) => {
  const keyRows = document.querySelector('.keyrow');
 // Checks to make sure ony "buttons" in the qwerty element can be clicked
     if (event.target.tagName == 'BUTTON'){
+// once the button has been clicked, change cursor to none
+        event.target.style.cursor = 'none';
     // If the letter is found
     let letterFound = checkLetter(buttonContent); 
         for (let i = 0; i < buttons.length; i++) {
-        // add the class, disabled the button and change cursor to none;
+        // add the class 'chosen', disabled the button]
         event.target.className = "chosen";
-        event.target.disabled = true; 
-        event.target.style.cursor = 'none';
+        event.target.disabled = true;   
     }
 
 // if the letter pressed on the screen is not found, remove a score and add 1 to the wrongGuess counter   
