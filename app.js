@@ -3,7 +3,15 @@
 const phrase = document.querySelector("#phrase");
 const qwerty = document.querySelector("#qwerty");
 const button_reset = document.querySelector(".btn__reset");
+const keyboardButton = document.querySelectorAll('.keyrow button');
 let wrongGuess = 0;
+
+// Adds the pointer cursor to all keyboard buttons
+for (let i = 0; i < keyboardButton.length; i++) {
+keyboardButton[i].style.cursor = "pointer";
+}
+
+
 // phrase array
 const phrases = [
     "the pink panther",
@@ -14,19 +22,18 @@ const phrases = [
 ];
 
 
-// This function randomly gets a phrase from the phrases array
+// This function randomly generates a phrase from the phrases array
 function getRandomPhraseAsArray(arr) {
 const arrayLength = Math.floor(Math.random() * phrases.length); 
-console.log(arrayLength)
 randomPhrase = phrases[arrayLength];
 phraseCharacters = randomPhrase.split("");
-console.log(randomPhrase);
-console.log(phraseCharacters);
 return phraseCharacters;
 };
 
 
 // This function adds the random phrase to a list item and appends the list item to the ul
+// Also adds the classname "letter" or "space" to the relevant list item;
+// @param is the array or phrases
 function addPhraseToDisplay (arr) {
 const ul = document.querySelector('#phrase ul');
     for (let i = 0; i < arr.length; i++) {
@@ -41,15 +48,17 @@ const ul = document.querySelector('#phrase ul');
     }
 }
 
+// This event hides the overlay, and resets the counters, list items, buttons, hearts back to their 
+// original state.
 button_reset.addEventListener('click', () => {
     const overlay = document.querySelector("#overlay");
     overlay.style.display = "none";
     wrongGuess = 0;
-    console.log(wrongGuess);
     const buttons = document.querySelectorAll('.keyrow button');
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("chosen");
         buttons[i].disabled = false;
+      
     }
 
     const hearts = document.querySelectorAll('.tries img');
@@ -59,7 +68,6 @@ button_reset.addEventListener('click', () => {
 
     const listItems = document.querySelectorAll('ul li');
     for (let j = 0; j < listItems.length; j++) {
-        console.log(listItems[j])
         if (listItems[j] != 0) {
         listItems[j].remove();
         }
@@ -70,19 +78,15 @@ button_reset.addEventListener('click', () => {
 
 
 // This function compares the button selected to the list items with a class ".letter"
+// @param is the button pressed on the on-screen keyboard
+// @return is the letter returned, it matched it will be the letter content, if not it will be null
 function checkLetter(buttonSelected) {
 const letters = document.querySelectorAll(".letter");
 let letterMatch = null;
     for (let i = 0; i < letters.length; i++) {
-        // console.log(letters[i]);
-        // console.log(buttonSelected);
-        console.log(letters[i].textContent);
         if (buttonSelected == letters[i].textContent) {
-           console.log("letter Match");
            letters[i].className = "letter show";
            letterMatch = letters[i].textContent;
-           console.log(letterMatch);
-        //    return letterMatch;
        }  
     }
 return letterMatch;
@@ -93,37 +97,33 @@ return letterMatch;
 // as a list item.
 
 qwerty.addEventListener('click', (event) => {
- 
  const button = document.querySelector('.keyrow button').target;
  const buttons = document.querySelectorAll('.keyrow button');
  const buttonContent = event.target.textContent;
  const keyRows = document.querySelector('.keyrow');
-if (event.target.tagName == 'BUTTON'){
- let letterFound = checkLetter(buttonContent); 
-     for (let i = 0; i < buttons.length; i++) {
-    event.target.className = "chosen";
-    event.target.disabled = true; 
-   
+// Checks to make sure ony "buttons" in the qwerty element can be clicked
+    if (event.target.tagName == 'BUTTON'){
+    // If the letter is found
+    let letterFound = checkLetter(buttonContent); 
+        for (let i = 0; i < buttons.length; i++) {
+        // add the class, disabled the button and change cursor to none;
+        event.target.className = "chosen";
+        event.target.disabled = true; 
+        event.target.style.cursor = 'none';
     }
 
 // if the letter pressed on the screen is not found, remove a score and add 1 to the wrongGuess counter   
-console.log(letterFound); 
+
 let scoreboard = document.querySelector('#scoreboard ol');
 const hearts = document.querySelectorAll('.tries img');
-
     if (letterFound == null) {
-        
-            hearts[wrongGuess].src = "images/lostHeart.png";
-            hearts.length --;
-        
+        hearts[wrongGuess].src = "images/lostHeart.png";
+        hearts.length --;
         wrongGuess += 1;
     }
 
-console.log(wrongGuess); 
 const letters = document.querySelectorAll(".letter");
 const show = document.querySelectorAll(".show");
-console.log(letters.length);
-console.log(show.length);
 
 // This function checks if you have won the game or not and displays the appropriate overlay
 function checkWin () {
