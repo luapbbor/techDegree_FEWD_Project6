@@ -23,13 +23,13 @@ const phrases = [
 	"rocky",
 	"memento",
 	"braveheart",
-	"slumdog millionaire"
+	"slumdog millionaire",
 	"the lord of the rings",
 	"beauty and the beast",
 	"seven",
 	"inception",
 	"die hard",
-	"ghostbusters"
+	"ghostbusters",
 	"blazing saddles",
 	"gladiator",
 	"avatar",
