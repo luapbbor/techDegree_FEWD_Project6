@@ -15,7 +15,28 @@ const phrases = [
     "donald duck",
     "astro boy",
     "the cat in a hat",
-    "the mouse in the house"
+    "the mouse in the house",
+	"bonnie and clyde",
+	"reservoir dogs",
+	"airplane",
+	"up",
+	"rocky",
+	"memento",
+	"braveheart",
+	"slumdog millionaire"
+	"the lord of the rings",
+	"beauty and the beast",
+	"seven",
+	"inception",
+	"die hard",
+	"ghostbusters"
+	"blazing saddles",
+	"gladiator",
+	"avatar",
+	"the lion king",
+	"raging bull",
+	"mary poppins",
+	"groundhog day"
 ];
 
 
